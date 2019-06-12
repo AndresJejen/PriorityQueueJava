@@ -11,7 +11,7 @@ package priotityqueueapp;
  */
 public class MaxHeap {
     
-    private int[] Heap;
+    private Archivo[] Heap;
     private int size;
     private int maxsize;
     
@@ -20,8 +20,8 @@ public class MaxHeap {
     public MaxHeap(int maxsize){
         this.maxsize = maxsize;
         this.size = 0;
-        Heap = new int[this.maxsize + 1];
-        Heap[0] = Integer.MAX_VALUE;
+        Heap = new Archivo[this.maxsize + 1];
+        Heap[0] = null;
     }
     
     private int parent(int pos){
@@ -42,7 +42,7 @@ public class MaxHeap {
     }
     
     private void swap(int fpos, int spos){
-        int tmp;
+        Archivo tmp;
         tmp = Heap[fpos];
         Heap[fpos] = Heap[spos];
         Heap[spos] = tmp;
@@ -50,8 +50,8 @@ public class MaxHeap {
     
     private void maxHeapify(int pos){
         if(!isLeaf(pos)){
-            if(Heap[pos] < Heap[leftChild(pos)] || Heap[pos] < Heap[rightChild(pos)]){
-                if(Heap[leftChild(pos)] > Heap[rightChild(pos)]){
+            if(Heap[pos].prioridad < Heap[leftChild(pos)].prioridad || Heap[pos].prioridad < Heap[rightChild(pos)].prioridad){
+                if(Heap[leftChild(pos)].prioridad > Heap[rightChild(pos)].prioridad){
                     swap(pos,leftChild(pos));
                     maxHeapify(leftChild(pos));
                 }
@@ -63,11 +63,11 @@ public class MaxHeap {
         }
     }
     
-    public void insert(int Element){
+    public void insert(Archivo Element){
         Heap[++size] = Element;
         int current = size;
         
-        while(Heap[current] > Heap[parent(current)]){
+        while(Heap[current].prioridad > Heap[parent(current)].prioridad){
             swap(current,parent(current));
             current = parent(current);
         }
@@ -86,8 +86,8 @@ public class MaxHeap {
         }
     }
     
-    public int remove(){
-        int popped = Heap[FRONT];
+    public Archivo remove(){
+        Archivo popped = Heap[FRONT];
         Heap[FRONT] = Heap[size--];
         maxHeapify(FRONT);
         return popped;
