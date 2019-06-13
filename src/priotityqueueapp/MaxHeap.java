@@ -21,7 +21,7 @@ public class MaxHeap {
         this.maxsize = maxsize;
         this.size = 0;
         Heap = new Archivo[this.maxsize + 1];
-        Heap[0] = null;
+        Heap[0] = new Archivo(-1,Integer.MAX_VALUE);
     }
     
     private int parent(int pos){
@@ -64,8 +64,15 @@ public class MaxHeap {
     }
     
     public void insert(Archivo Element){
+        
+        System.out.println("El Archivo tiene prioridad " + Element.prioridad + " entrada: " + Element.ordenLlegada);
+        
         Heap[++size] = Element;
         int current = size;
+        
+        System.out.println("Arbol");
+        print();
+        System.out.print("-----------");
         
         while(Heap[current].prioridad > Heap[parent(current)].prioridad){
             swap(current,parent(current));
@@ -75,7 +82,9 @@ public class MaxHeap {
     
     public void print(){
         for(int i = 1; i<= size/2; i++){
-            System.out.print(" Valor padre: " + Heap[i] + " Hijo izquierdo: " + Heap[2*i] + " Hijo Derecho: "+ Heap[2*1+1]);
+            System.out.println(" Valor padre: " + Heap[i].prioridad + " entrada: " + Heap[i].ordenLlegada );
+            System.out.println(" Hijo izquierdo: " + Heap[2*i].prioridad + " entrada: " + Heap[2*i].ordenLlegada);
+            System.out.println(" Hijo Derecho: "+ Heap[2*1+1].prioridad + " entrada: " + Heap[2*i+1].ordenLlegada);
             System.out.println();
         }
     }

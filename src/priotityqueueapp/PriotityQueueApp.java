@@ -1,57 +1,85 @@
+
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+1
+5 0
+1 1 9 1 1
+*/
+
+
 package priotityqueueapp;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
  *
  * @author gjejen
  */
-public class PriotityQueueApp {
+public class PriotityQueueApp  {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         // TODO code application logic here
         System.out.println(" Consultado el valor máximo");
         
-        Scanner inp = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T=Integer.parseInt(br.readLine());
+        int n, m;
         
-        int T = inp.nextInt();
+        System.out.println("Valor de T " + T);
         
         for (int i  = 0; i<T;i++){
-            String[] nmx = inp.nextLine().split(" ");
-
-            int n = Integer.parseInt(nmx[0].trim());
-
-            int m = Integer.parseInt(nmx[1].trim());
-
-            MaxHeap maxHeap = new MaxHeap(n);
             
-            String[] datos = inp.nextLine().split(" ");
-            
-            for (int j = 0; j < n; j++){
-                maxHeap.insert(new Archivo(j,Integer.parseInt(nmx[j].trim())));
+           String line = br.readLine();
+           String[] palabras=line.split(" ");
+           n=Integer.parseInt(palabras[0].trim());
+           m=Integer.parseInt(palabras[1].trim());
+           
+           String num = br.readLine();
+           String[] numeros=num.split(" ");
+           
+           MaxHeap maxHeap = new MaxHeap(n);
+             
+           System.out.println("insert ");
+            for (int cont = 0; cont < n; cont++){
+                
+                int value = Integer.parseInt(numeros[cont].trim());
+                System.out.println(value);
+                maxHeap.insert(new Archivo(cont,value));
             }
+            System.out.println("-------------------");
+            
+            System.out.println("Arbol");
+            maxHeap.print();
+            System.out.print("-----------");
             
             maxHeap.maxheap();
             
-            //maxHeap.print();
+            System.out.println("Arbol Listo");
+            maxHeap.print();
+            System.out.print("-----------");
             
             Archivo[] ordenado = new Archivo[n];
             
+            System.out.println("Sacar");
             for(int w = 0; w<n;w++){
                 ordenado[w] = maxHeap.remove();
+                System.out.println("Prioridad " + ordenado[w].prioridad + " Entrada " + ordenado[w].ordenLlegada);
+                System.out.println("Arbol");
+                maxHeap.print();
+                System.out.print("-----------");
             }
-        
+            System.out.print("---------------------");
+            
             for(int w = 0; w<n;w++){
                 if(ordenado[w].ordenLlegada == m ){
+                    System.out.println("Resultado ");
                     System.out.println(w+1);
                     break;
                 }
