@@ -70,10 +70,6 @@ public class MaxHeap {
         Heap[++size] = Element;
         int current = size;
         
-        System.out.println("Arbol");
-        print();
-        System.out.print("-----------");
-        
         while(Heap[current].prioridad > Heap[parent(current)].prioridad){
             swap(current,parent(current));
             current = parent(current);
@@ -84,7 +80,7 @@ public class MaxHeap {
         for(int i = 1; i<= size/2; i++){
             System.out.println(" Valor padre: " + Heap[i].prioridad + " entrada: " + Heap[i].ordenLlegada );
             System.out.println(" Hijo izquierdo: " + Heap[2*i].prioridad + " entrada: " + Heap[2*i].ordenLlegada);
-            System.out.println(" Hijo Derecho: "+ Heap[2*1+1].prioridad + " entrada: " + Heap[2*i+1].ordenLlegada);
+            System.out.println(" Hijo Derecho: "+ Heap[2*i+1].prioridad + " entrada: " + Heap[2*i+1].ordenLlegada);
             System.out.println();
         }
     }
