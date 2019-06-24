@@ -37,7 +37,7 @@ public class MaxHeap {
     }
     
     private boolean isLeaf(int pos){
-        if(pos >= (size/2) && pos <= size) return true;
+        if(pos > (size/2) && pos <= size) return true;
         return false;
     }
     
@@ -49,8 +49,26 @@ public class MaxHeap {
     }
     
     private void maxHeapify(int pos){
+        
+        //System.out.println("Padre Prioridad " + Heap[pos].prioridad + " entrada " + Heap[pos].ordenLlegada);
+        //System.out.println("left Prioridad " + Heap[leftChild(pos)].prioridad + " entrada " + Heap[leftChild(pos)].ordenLlegada);
+        //System.out.println("right Prioridad " + Heap[rightChild(pos)].prioridad + " entrada " + Heap[rightChild(pos)].ordenLlegada);
+        
+        
+        System.out.println("Arbol en maxheapify");
+        print();
+        System.out.println("-----------");
+        
+        
         if(!isLeaf(pos)){
             if(Heap[pos].prioridad < Heap[leftChild(pos)].prioridad || Heap[pos].prioridad < Heap[rightChild(pos)].prioridad){
+                
+                System.out.println(" - Imprimiendo Heapify - ");
+                System.out.println("Padre: " + Heap[pos].prioridad);
+                System.out.println("Left:  " + Heap[leftChild(pos)].prioridad);
+                System.out.println("Right: " + Heap[rightChild(pos)].prioridad);
+                System.out.println(" -      Fin Heapify    - ");
+                
                 if(Heap[leftChild(pos)].prioridad > Heap[rightChild(pos)].prioridad){
                     swap(pos,leftChild(pos));
                     maxHeapify(leftChild(pos));
@@ -67,7 +85,10 @@ public class MaxHeap {
         
         System.out.println("El Archivo tiene prioridad " + Element.prioridad + " entrada: " + Element.ordenLlegada);
         
+        // System.out.println("Antes " + size);
         Heap[++size] = Element;
+        // System.out.println("Despues " + size);
+        
         int current = size;
         
         while(Heap[current].prioridad > Heap[parent(current)].prioridad){
@@ -92,8 +113,17 @@ public class MaxHeap {
     }
     
     public Archivo remove(){
-        Archivo popped = Heap[FRONT];
-        Heap[FRONT] = Heap[size--];
+        Archivo popped = new Archivo(Heap[FRONT].ordenLlegada,Heap[FRONT].prioridad);
+        
+        
+        System.out.println("Último - Size: " + size);
+        System.out.println("Prioridad: " + Heap[size].prioridad + " Entrada: " + Heap[size].ordenLlegada + "\n - - - \n");
+              
+        
+        Heap[FRONT].ordenLlegada = Heap[size].ordenLlegada;
+        Heap[FRONT].prioridad = Heap[size].prioridad;
+        Heap[size].prioridad = Integer.MIN_VALUE;
+        size--;
         maxHeapify(FRONT);
         return popped;
     }

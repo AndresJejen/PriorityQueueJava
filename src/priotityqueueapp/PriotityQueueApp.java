@@ -60,17 +60,18 @@ public class PriotityQueueApp  {
             System.out.println("-----------");
             
             maxHeap.maxheap();
-            
-            System.out.println("Arbol Listo");
-            maxHeap.print();
-            System.out.println("-----------");
-            
+           
             Archivo[] ordenado = new Archivo[n];
             
-            System.out.println("Sacar");
             for(int w = 0; w<n;w++){
+                
+                System.out.println("- - - - - - - - - Sacar - - - - - - - - -");             
                 ordenado[w] = maxHeap.remove();
-                System.out.println("Prioridad " + ordenado[w].prioridad + " Entrada " + ordenado[w].ordenLlegada);
+                System.out.println("Retirado Prioridad " + ordenado[w].prioridad + " Entrada " + ordenado[w].ordenLlegada);
+                System.out.println("Arbol");
+                maxHeap.print();
+                System.out.println("-----------------------------------------");
+                //maxHeap.maxheap();
             }
             System.out.println("---------------------");
             
